@@ -9,6 +9,7 @@ from intelfuse.enrichment import (
     normalize_virustotal_ip,
 )
 from intelfuse.models import ProviderEnvelope
+from intelfuse.output import format_country
 from intelfuse.validation import validate_ip_address
 
 
@@ -25,6 +26,11 @@ class ValidationTests(unittest.TestCase):
 
 
 class NormalizationTests(unittest.TestCase):
+    def test_format_country(self) -> None:
+        self.assertEqual(format_country("US"), "United States")
+        self.assertEqual(format_country("cn"), "China")
+        self.assertEqual(format_country(None), "n/a")
+
     def test_normalize_virustotal(self) -> None:
         payload = {
             "data": {
