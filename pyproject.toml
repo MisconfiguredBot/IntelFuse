@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "intelfuse"
+version = "0.1.0"
+description = "CLI for VirusTotal lookups and multi-provider IP enrichment."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  { name = "Curtis" }
+]
+keywords = ["threat-intelligence", "virustotal", "abuseipdb", "greynoise", "cli"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Environment :: Console",
+]
+
+[project.scripts]
+intelfuse = "intelfuse.cli:main"
+
+[tool.setuptools]
+include-package-data = false
+
+[tool.setuptools.packages.find]
+include = ["intelfuse*"]

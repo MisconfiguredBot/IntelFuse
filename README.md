@@ -5,7 +5,23 @@ A Python command-line tool for:
 - VirusTotal lookups of IPs, hashes, URLs, and local files
 - IP enrichment with VirusTotal, GreyNoise v3, and AbuseIPDB v2
 
-## Setup
+## Installation
+
+Install the CLI in editable mode:
+
+```bash
+python3 -m pip install -e .
+```
+
+If your environment is offline or uses restricted package indexes, use:
+
+```bash
+python3 -m pip install -e . --no-build-isolation
+```
+
+After installation, you can run the tool as `intelfuse` or `python3 -m intelfuse`.
+
+## Configuration
 
 Export the API keys you want to use:
 
@@ -20,25 +36,40 @@ GreyNoise community lookups can work without `GREYNOISE_API_KEY`; if you have a 
 
 ## Usage
 
+Installed command:
+
+```bash
+intelfuse --help
+intelfuse ip 1.1.1.1
+intelfuse enrich ip 1.1.1.1
+```
+
 Legacy VirusTotal lookups still work:
 
 ```bash
-python3 lookup.py 8.8.8.8
-python3 lookup.py 8.8.8.8 https://example.com
-python3 lookup.py 44d88612fea8a8f36de82e1278abb02f
-python3 lookup.py /path/to/sample.exe
-python3 lookup.py --upload-missing /path/to/sample.exe
-python3 lookup.py --json https://example.com
+intelfuse 8.8.8.8
+intelfuse 8.8.8.8 https://example.com
+intelfuse 44d88612fea8a8f36de82e1278abb02f
+intelfuse /path/to/sample.exe
+intelfuse --upload-missing /path/to/sample.exe
+intelfuse --json https://example.com
 ```
 
 New IP enrichment commands:
 
 ```bash
+intelfuse ip 1.1.1.1
+intelfuse enrich ip 1.1.1.1
+intelfuse ip 2001:4860:4860::8888 --verbose
+intelfuse ip 8.8.8.8 --json
+intelfuse ip 8.8.8.8 --timeout 10
+```
+
+Direct script usage still works if you do not want to install it:
+
+```bash
 python3 lookup.py ip 1.1.1.1
-python3 lookup.py enrich ip 1.1.1.1
-python3 lookup.py ip 2001:4860:4860::8888 --verbose
-python3 lookup.py ip 8.8.8.8 --json
-python3 lookup.py ip 8.8.8.8 --timeout 10
+python3 lookup.py 8.8.8.8
 ```
 
 ## Analyst Output
@@ -128,7 +159,7 @@ Why:           AbuseIPDB has no recent reports
 Use `--json` for a stable machine-readable report:
 
 ```bash
-python3 lookup.py ip 8.8.8.8 --json
+intelfuse ip 8.8.8.8 --json
 ```
 
 The JSON includes:
@@ -153,5 +184,6 @@ The JSON includes:
 Run:
 
 ```bash
+python3 -m pip install -e .
 python3 -m unittest discover -s tests -p 'test_*.py'
 ```
