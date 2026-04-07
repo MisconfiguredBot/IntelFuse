@@ -7,15 +7,32 @@ A Python command-line tool for:
 
 ## Installation
 
-Install the CLI in editable mode:
+For an isolated user install, use `pipx`:
+
+```bash
+python3 -m pip install --user pipx
+python3 -m pipx ensurepath
+pipx install .
+```
+
+That installs the `intelfuse` command without mixing it into your system Python packages.
+
+For local development, install it in editable mode:
 
 ```bash
 python3 -m pip install -e .
 ```
 
-If your environment is offline or uses restricted package indexes, use:
+For a regular non-editable install, use:
 
 ```bash
+python3 -m pip install .
+```
+
+If your environment is offline or uses restricted package indexes, add `--no-build-isolation`:
+
+```bash
+pipx install . --pip-args=--no-build-isolation
 python3 -m pip install -e . --no-build-isolation
 ```
 
@@ -36,10 +53,15 @@ GreyNoise community lookups can work without `GREYNOISE_API_KEY`; if you have a 
 
 ## Usage
 
-Installed command:
+Smoke test after install:
 
 ```bash
 intelfuse --help
+```
+
+Installed command:
+
+```bash
 intelfuse ip 1.1.1.1
 intelfuse enrich ip 1.1.1.1
 ```
@@ -54,6 +76,8 @@ intelfuse /path/to/sample.exe
 intelfuse --upload-missing /path/to/sample.exe
 intelfuse --json https://example.com
 ```
+
+Set `VT_API_KEY` in your environment before running the legacy VirusTotal lookup mode. The CLI no longer accepts API keys on the command line so secrets do not leak into shell history or process lists.
 
 New IP enrichment commands:
 
