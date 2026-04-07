@@ -12,6 +12,8 @@ For an isolated user install, use `pipx`:
 ```bash
 python3 -m pip install --user pipx
 python3 -m pipx ensurepath
+git clone https://github.com/MisconfiguredBot/IntelFuse
+cd IntelFuse
 pipx install .
 ```
 
